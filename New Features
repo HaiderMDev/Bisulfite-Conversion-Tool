@@ -1,0 +1,679 @@
+from tkinter import *
+import re
+my_window=Tk()
+my_window.title("Bisulfite Conversion Tool")
+canvas = Canvas(my_window, width=400, height=200, borderwidth=0, highlightthickness=0, bg="white")
+canvas.grid(row=17,column=1)
+
+def _create_circle(self, x, y, r, **kwargs):
+    return self.create_oval(x-r, y-r, x+r, y+r, **kwargs)
+Canvas.create_circle = _create_circle
+
+
+def draw():
+    seq=entry1.get()
+    seq2 = seq.upper()
+    clone1=clone1_entry.get()
+    clone1_mod=clone1.upper()
+
+    clone2=clone2_entry.get()
+    clone2_mod=clone2.upper()
+
+    clone3=clone3_entry.get()
+    clone3_mod=clone3.upper()
+
+    clone4=clone4_entry.get()
+    clone4_mod=clone4.upper()
+
+    clone5=clone5_entry.get()
+    clone5_mod=clone5.upper()
+
+    clone6=clone6_entry.get()
+    clone6_mod=clone6.upper()
+
+    clone7=clone7_entry.get()
+    clone7_mod=clone7.upper()
+
+    clone8=clone8_entry.get()
+    clone8_mod=clone8.upper()
+
+    clone9=clone9_entry.get()
+    clone9_mod=clone9.upper()
+
+    clone10=clone10_entry.get()
+    clone10_mod=clone10.upper()
+
+    #CpG comparison
+    matches_seq = re.finditer("CG",seq2)
+    matches_clone1= re.finditer("CG",clone1_mod)
+    positions1 = [match.start() for match in matches_seq]
+    positions_clone1= [match.start() for match in matches_clone1]
+
+    matches_clone2= re.finditer("CG",clone2_mod)
+    positions_clone2= [match.start() for match in matches_clone2]
+
+    matches_clone3= re.finditer("CG",clone3_mod)
+    positions_clone3= [match.start() for match in matches_clone3]
+
+    matches_clone4= re.finditer("CG",clone4_mod)
+    positions_clone4= [match.start() for match in matches_clone4]
+
+    matches_clone5= re.finditer("CG",clone5_mod)
+    positions_clone5= [match.start() for match in matches_clone5]
+
+    matches_clone6= re.finditer("CG",clone6_mod)
+    positions_clone6= [match.start() for match in matches_clone6]
+
+    matches_clone7= re.finditer("CG",clone7_mod)
+    positions_clone7= [match.start() for match in matches_clone7]
+
+    matches_clone8= re.finditer("CG",clone8_mod)
+    positions_clone8= [match.start() for match in matches_clone8]
+
+    matches_clone9= re.finditer("CG",clone9_mod)
+    positions_clone9= [match.start() for match in matches_clone9]
+
+    matches_clone10= re.finditer("CG",clone10_mod)
+    positions_clone10= [match.start() for match in matches_clone10]
+
+    d1 = 0
+    d2 = 0
+    d3 = 0
+    d4 = 0
+    d5 = 0
+    d6 = 0
+    d7 = 0
+    d8 = 0
+    d9 = 0
+    d10 = 0
+    number1 = 0
+    number2 = 0
+    number3 = 0
+    number4 = 0
+    number5 = 0
+    number6 = 0
+    number7 = 0
+    number8 = 0
+    number9 = 0
+    number10 = 0
+
+    c = "C"
+    g = "G"
+
+    #CpG counter for the original sequence:
+    cpg_count=0
+    for i in range(0,len(seq2)):
+        cur_base = seq2[i:i+1]
+        next_base = seq2[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count += 1
+            else:
+                cpg_count += 0
+
+    #CpG counter for clones:
+    cpg_count1=0
+    cpg_count2=0
+    cpg_count3=0
+    cpg_count4=0
+    cpg_count5=0
+    cpg_count6=0
+    cpg_count7=0
+    cpg_count8=0
+    cpg_count9=0
+    cpg_count10=0
+
+    #clone1
+    for i in range(0,len(clone1_mod)):
+        number1 +=1
+        cur_base = clone1_mod[i:i+1]
+        next_base = clone1_mod[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count1 += 1
+            else:
+                cpg_count1 += 0
+    for i in positions1:
+        d1 += 10
+        if i in positions_clone1:
+            color="black"
+        else:
+            color="white"
+        canvas.create_circle(5+d1,35,5,fill=color,outline="black",width=0.5)
+    meth_clone1= str(((cpg_count1)/(cpg_count))*100)
+    c1=Text(my_window,height=1,width=40)
+    c1.insert(1.0,str(number1) + str("bp; ")+str(cpg_count1)+str("CpG's: ")+str(meth_clone1)+str("% methylation"))
+    c1.grid(row=5,column=2)
+
+    #clone2
+    for i in range(0,len(clone2_mod)):
+        number2 +=1
+        cur_base = clone2_mod[i:i+1]
+        next_base = clone2_mod[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count2 += 1
+            else:
+                cpg_count2 += 0
+    for i in positions1:
+        d2 += 10
+        if i in positions_clone2:
+            color="black"
+        else:
+            color="white"
+        canvas.create_circle(5+d2,45,5,fill=color,outline="black",width=0.5)
+    meth_clone2= str(((cpg_count2)/(cpg_count))*100)
+    c1=Text(my_window,height=1,width=40)
+    c1.insert(1.0,str(number2) + str("bp; ")+str(cpg_count2)+str("CpG's: ")+str(meth_clone2)+str("% methylation"))
+    c1.grid(row=6,column=2)
+
+    #clone3
+    for i in range(0,len(clone3_mod)):
+        number3 +=1
+        cur_base = clone3_mod[i:i+1]
+        next_base = clone3_mod[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count3 += 1
+            else:
+                cpg_count3 += 0
+    for i in positions1:
+        d3 += 10
+        if i in positions_clone3:
+            color="black"
+        else:
+            color="white"
+        canvas.create_circle(5+d3,55,5,fill=color,outline="black",width=0.5)
+    meth_clone3= str(((cpg_count3)/(cpg_count))*100)
+    c1=Text(my_window,height=1,width=40)
+    c1.insert(1.0,str(number3) + str("bp; ")+str(cpg_count3)+str("CpG's: ")+str(meth_clone3)+str("% methylation"))
+    c1.grid(row=7,column=2)
+
+    #clone4
+    for i in range(0,len(clone4_mod)):
+        number4 +=1
+        cur_base = clone4_mod[i:i+1]
+        next_base = clone4_mod[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count4 += 1
+            else:
+                cpg_count4 += 0
+    for i in positions1:
+        d4 += 10
+        if i in positions_clone4:
+            color="black"
+        else:
+            color="white"
+        canvas.create_circle(5+d4,65,5,fill=color,outline="black",width=0.5)
+    meth_clone4= str(((cpg_count4)/(cpg_count))*100)
+    c1=Text(my_window,height=1,width=40)
+    c1.insert(1.0,str(number4) + str("bp; ")+str(cpg_count4)+str("CpG's: ")+str(meth_clone4)+str("% methylation"))
+    c1.grid(row=8,column=2)
+
+    #clone5
+    for i in range(0,len(clone5_mod)):
+        number5 +=1
+        cur_base = clone5_mod[i:i+1]
+        next_base = clone5_mod[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count5 += 1
+            else:
+                cpg_count5 += 0
+    for i in positions1:
+        d5 += 10
+        if i in positions_clone5:
+            color="black"
+        else:
+            color="white"
+        canvas.create_circle(5+d5,75,5,fill=color,outline="black",width=0.5)
+    meth_clone5= str(((cpg_count5)/(cpg_count))*100)
+    c1=Text(my_window,height=1,width=40)
+    c1.insert(1.0,str(number5) + str("bp; ")+str(cpg_count5)+str("CpG's: ")+str(meth_clone5)+str("% methylation"))
+    c1.grid(row=9,column=2)
+
+    #clone6
+    for i in range(0,len(clone6_mod)):
+        number6 +=1
+        cur_base = clone6_mod[i:i+1]
+        next_base = clone6_mod[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count6 += 1
+            else:
+                cpg_count6 += 0
+    for i in positions1:
+        d6 += 10
+        if i in positions_clone6:
+            color="black"
+        else:
+            color="white"
+        canvas.create_circle(5+d6,85,5,fill=color,outline="black",width=0.5)
+    meth_clone6= str(((cpg_count6)/(cpg_count))*100)
+    c1=Text(my_window,height=1,width=40)
+    c1.insert(1.0,str(number6) + str("bp; ")+str(cpg_count6)+str("CpG's: ")+str(meth_clone6)+str("% methylation"))
+    c1.grid(row=10,column=2)
+
+    #clone7
+    for i in range(0,len(clone7_mod)):
+        number7 +=1
+        cur_base = clone7_mod[i:i+1]
+        next_base = clone7_mod[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count7 += 1
+            else:
+                cpg_count7 += 0
+    for i in positions1:
+        d7 += 10
+        if i in positions_clone7:
+            color="black"
+        else:
+            color="white"
+        canvas.create_circle(5+d7,95,5,fill=color,outline="black",width=0.5)
+    meth_clone7= str(((cpg_count7)/(cpg_count))*100)
+    c1=Text(my_window,height=1,width=40)
+    c1.insert(1.0,str(number7) + str("bp; ")+str(cpg_count7)+str("CpG's: ")+str(meth_clone7)+str("% methylation"))
+    c1.grid(row=11,column=2)
+
+    #clone8
+    for i in range(0,len(clone8_mod)):
+        number8 +=1
+        cur_base = clone8_mod[i:i+1]
+        next_base = clone8_mod[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count8 += 1
+            else:
+                cpg_count8 += 0
+    for i in positions1:
+        d8 += 10
+        if i in positions_clone8:
+            color="black"
+        else:
+            color="white"
+        canvas.create_circle(5+d8,105,5,fill=color,outline="black",width=0.5)
+    meth_clone8= str(((cpg_count8)/(cpg_count))*100)
+    c1=Text(my_window,height=1,width=40)
+    c1.insert(1.0,str(number8) + str("bp; ")+str(cpg_count8)+str("CpG's: ")+str(meth_clone8)+str("% methylation"))
+    c1.grid(row=12,column=2)
+
+    #clone9
+    for i in range(0,len(clone9_mod)):
+        number9 +=1
+        cur_base = clone9_mod[i:i+1]
+        next_base = clone9_mod[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count9 += 1
+            else:
+                cpg_count9 += 0
+    for i in positions1:
+        d9 += 10
+        if i in positions_clone9:
+            color="black"
+        else:
+            color="white"
+        canvas.create_circle(5+d9,115,5,fill=color,outline="black",width=0.5)
+    meth_clone9= str(((cpg_count9)/(cpg_count))*100)
+    c1=Text(my_window,height=1,width=40)
+    c1.insert(1.0,str(number9) + str("bp; ")+str(cpg_count9)+str("CpG's: ")+str(meth_clone9)+str("% methylation"))
+    c1.grid(row=13,column=2)
+
+    #clone10
+    for i in range(0,len(clone10_mod)):
+        number10 +=1
+        cur_base = clone10_mod[i:i+1]
+        next_base = clone10_mod[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                cpg_count10 += 1
+            else:
+                cpg_count10 += 0
+    for i in positions1:
+        d10 += 10
+        if i in positions_clone10:
+            color="black"
+        else:
+            color="white"
+        canvas.create_circle(5+d10,125,5,fill=color,outline="black",width=0.5)
+    meth_clone10= str(((cpg_count10)/(cpg_count))*100)
+    c1=Text(my_window,height=1,width=40)
+    c1.insert(1.0,str(number10) + str("bp; ")+str(cpg_count10)+str("CpG's: ")+str(meth_clone10)+str("% methylation"))
+    c1.grid(row=14,column=2)
+
+
+
+
+#definition for the bisulfite conversion and CpG counter:
+def convert():
+    seq=entry1.get()
+    seq2 = seq.upper()
+    c = "C"
+    g = "G"
+    conv_seq= ""
+    cpg_count=0
+    basepairs=0
+    for i in range(0,len(seq2)):
+        basepairs += 1
+        cur_base = seq2[i:i+1]
+        next_base = seq2[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                conv_seq = conv_seq + cur_base
+                cpg_count += 1
+            else:
+                conv_seq = conv_seq + 'T'
+                cpg_count += 0
+        else:
+            conv_seq = conv_seq + cur_base
+    string_to_display=conv_seq
+    second_string_to_display=str(cpg_count)
+    label_2= Label (my_window,text="The bisulfite converted DNA is: ",bg="white",wraplength=550)
+    label_2.grid(row=3,column=0)
+    w=Text(my_window,height=5,width=50)
+    w.insert(1.0,string_to_display)
+    w.grid(row=3,column=1)
+    label_3= Label (my_window,text="Number of CpG's in the sequence: ",bg="white",wraplength=550)
+    label_3.grid(row=4,column=0)
+    y=Text(my_window,height=1, width=50)
+    y.insert(1.0,second_string_to_display + str(" CpG sites; Also, sequence is ") + str(basepairs) + str("bp"))
+    y.grid(row=4,column=1)
+
+
+
+
+
+def methylation_per():
+    clone1=clone1_entry.get()
+    clone1_mod=clone1.upper()
+
+    clone2=clone2_entry.get()
+    clone2_mod=clone2.upper()
+
+    clone3=clone3_entry.get()
+    clone3_mod=clone3.upper()
+
+    clone4=clone4_entry.get()
+    clone4_mod=clone4.upper()
+
+    clone5=clone5_entry.get()
+    clone5_mod=clone5.upper()
+
+    clone6=clone6_entry.get()
+    clone6_mod=clone6.upper()
+
+    clone7=clone7_entry.get()
+    clone7_mod=clone7.upper()
+
+    clone8=clone8_entry.get()
+    clone8_mod=clone8.upper()
+
+    clone9=clone9_entry.get()
+    clone9_mod=clone9.upper()
+
+    clone10=clone10_entry.get()
+    clone10_mod=clone10.upper()
+
+    seq=entry1.get()
+    seq2 = seq.upper()
+    c = "C"
+    g = "G"
+    conv_seq= ""
+    cpg_count=0
+
+    clone_seq1 = ""
+    clone_cpg1=0
+
+    clone_seq2 = ""
+    clone_cpg2=0
+
+    clone_seq3 = ""
+    clone_cpg3=0
+
+    clone_seq4 = ""
+    clone_cpg4=0
+
+    clone_seq5 = ""
+    clone_cpg5 =0
+
+    clone_seq6 = ""
+    clone_cpg6=0
+
+    clone_seq7 = ""
+    clone_cpg7=0
+
+    clone_seq8 = ""
+    clone_cpg8=0
+
+    clone_seq9 = ""
+    clone_cpg9=0
+
+    clone_seq10 = ""
+    clone_cpg10 =0
+
+    for i in range(0,len(seq2)):
+        cur_base = seq2[i:i+1]
+        next_base = seq2[i+1:i+2]
+        if cur_base == c:
+            if next_base == g:
+                conv_seq = conv_seq + cur_base
+                cpg_count += 1
+            else:
+                conv_seq = conv_seq + 'T'
+                cpg_count += 0
+        else:
+            conv_seq = conv_seq + cur_base
+
+    for i in range(0,len(clone1_mod)):
+        current = clone1_mod[i:i+1]
+        next = clone1_mod[i+1:i+2]
+        if current == c:
+            if next == g:
+                clone_seq1 = clone_seq1 + cur_base
+                clone_cpg1 += 1
+            else:
+                clone_seq1 = clone_seq1 + 'T'
+                clone_cpg1 += 0
+        else:
+            clone_seq1 = clone_seq1 + cur_base
+
+    for i in range(0,len(clone2_mod)):
+        current = clone2_mod[i:i+1]
+        next = clone2_mod[i+1:i+2]
+        if current == c:
+            if next == g:
+                clone_seq2 = clone_seq2 + cur_base
+                clone_cpg2 += 1
+            else:
+                clone_seq2 = clone_seq2 + 'T'
+                clone_cpg2 += 0
+        else:
+            clone_seq2 = clone_seq2 + cur_base
+
+    for i in range(0,len(clone3_mod)):
+        current = clone3_mod[i:i+1]
+        next = clone3_mod[i+1:i+2]
+        if current == c:
+            if next == g:
+                clone_seq3 = clone_seq3 + cur_base
+                clone_cpg3 += 1
+            else:
+                clone_seq3 = clone_seq3 + 'T'
+                clone_cpg3 += 0
+        else:
+            clone_seq3 = clone_seq3 + cur_base
+
+    for i in range(0,len(clone4_mod)):
+        current = clone4_mod[i:i+1]
+        next = clone4_mod[i+1:i+2]
+        if current == c:
+            if next == g:
+                clone_seq4 = clone_seq4 + cur_base
+                clone_cpg4 += 1
+            else:
+                clone_seq4 = clone_seq4 + 'T'
+                clone_cpg4 += 0
+        else:
+            clone_seq4 = clone_seq4 + cur_base
+
+    for i in range(0,len(clone5_mod)):
+        current = clone5_mod[i:i+1]
+        next = clone5_mod[i+1:i+2]
+        if current == c:
+            if next == g:
+                clone_seq5 = clone_seq5 + cur_base
+                clone_cpg5 += 1
+            else:
+                clone_seq5 = clone_seq5 + 'T'
+                clone_cpg5 += 0
+        else:
+            clone_seq5 = clone_seq5 + cur_base
+
+    for i in range(0,len(clone6_mod)):
+        current = clone6_mod[i:i+1]
+        next = clone6_mod[i+1:i+2]
+        if current == c:
+            if next == g:
+                clone_seq6 = clone_seq6 + cur_base
+                clone_cpg6 += 1
+            else:
+                clone_seq6 = clone_seq6 + 'T'
+                clone_cpg6 += 0
+        else:
+            clone_seq6 = clone_seq6 + cur_base
+
+    for i in range(0,len(clone7_mod)):
+        current = clone7_mod[i:i+1]
+        next = clone7_mod[i+1:i+2]
+        if current == c:
+            if next == g:
+                clone_seq7 = clone_seq7 + cur_base
+                clone_cpg7 += 1
+            else:
+                clone_seq7 = clone_seq7 + 'T'
+                clone_cpg7 += 0
+        else:
+            clone_seq7 = clone_seq7 + cur_base
+
+    for i in range(0,len(clone8_mod)):
+        current = clone8_mod[i:i+1]
+        next = clone8_mod[i+1:i+2]
+        if current == c:
+            if next == g:
+                clone_seq8 = clone_seq8 + cur_base
+                clone_cpg8 += 1
+            else:
+                clone_seq8 = clone_seq8 + 'T'
+                clone_cpg8 += 0
+        else:
+            clone_seq8 = clone_seq8 + cur_base
+
+    for i in range(0,len(clone9_mod)):
+        current = clone9_mod[i:i+1]
+        next = clone9_mod[i+1:i+2]
+        if current == c:
+            if next == g:
+                clone_seq9 = clone_seq9 + cur_base
+                clone_cpg9 += 1
+            else:
+                clone_seq9 = clone_seq9 + 'T'
+                clone_cpg9 += 0
+        else:
+            clone_seq9 = clone_seq9 + cur_base
+
+    for i in range(0,len(clone10_mod)):
+        current = clone10_mod[i:i+1]
+        next = clone10_mod[i+1:i+2]
+        if current == c:
+            if next == g:
+                clone_seq10 = clone_seq10 + cur_base
+                clone_cpg10 += 1
+            else:
+                clone_seq10 = clone_seq10 + 'T'
+                clone_cpg10 += 0
+        else:
+            clone_seq10 = clone_seq10 + cur_base
+
+    meth_per=str((((clone_cpg1+clone_cpg2+clone_cpg3+clone_cpg4+clone_cpg5+clone_cpg6+clone_cpg7+clone_cpg8+clone_cpg9+clone_cpg10)/10) / cpg_count)*100)
+    x=Text(my_window,height=0.5,width = 30)
+    x.insert(1.0, meth_per+"% methylation!")
+    x.grid(row=15, column =1)
+
+
+
+
+#bisulfite conversion label and entry:
+label_1=Label(my_window,text="Unconverted Sequence:", bg="white")
+label_1.grid(row=0, column=0)
+entry1=Entry(my_window,width=50)
+entry1.grid(row=0, column=1)
+button_1=Button(my_window, text="Bisulfite Convert Please!",bg="lightblue",command=convert)
+button_1.grid(row=2, column=0)
+
+#entry for the clones:
+clone1 = Label(my_window, text="Clone #1: ", bg="green", font=("arial",10,"bold"))
+clone1.grid(row=5,column=0)
+clone1_entry=Entry(my_window,width=50)
+clone1_entry.grid(row=5,column=1)
+
+clone2 = Label(my_window, text="Clone #2: ", bg="green", font=("arial",10,"bold"))
+clone2.grid(row=6,column=0)
+clone2_entry=Entry(my_window,width=50)
+clone2_entry.grid(row=6,column=1)
+
+clone3 = Label(my_window, text="Clone #3: ", bg="green", font=("arial",10,"bold"))
+clone3.grid(row=7,column=0)
+clone3_entry=Entry(my_window,width=50)
+clone3_entry.grid(row=7,column=1)
+
+clone4 = Label(my_window, text="Clone #4: ", bg="green", font=("arial",10,"bold"))
+clone4.grid(row=8,column=0)
+clone4_entry=Entry(my_window,width=50)
+clone4_entry.grid(row=8,column=1)
+
+clone5 = Label(my_window, text="Clone #5: ", bg="green", font=("arial",10,"bold"))
+clone5.grid(row=9,column=0)
+clone5_entry=Entry(my_window,width=50)
+clone5_entry.grid(row=9,column=1)
+
+clone6 = Label(my_window, text="Clone #6: ", bg="green", font=("arial",10,"bold"))
+clone6.grid(row=10,column=0)
+clone6_entry=Entry(my_window,width=50)
+clone6_entry.grid(row=10,column=1)
+
+clone7 = Label(my_window, text="Clone #7: ", bg="green", font=("arial",10,"bold"))
+clone7.grid(row=11,column=0)
+clone7_entry=Entry(my_window,width=50)
+clone7_entry.grid(row=11,column=1)
+
+clone8 = Label(my_window, text="Clone #8: ", bg="green", font=("arial",10,"bold"))
+clone8.grid(row=12,column=0)
+clone8_entry=Entry(my_window,width=50)
+clone8_entry.grid(row=12,column=1)
+
+clone9 = Label(my_window, text="Clone #9: ", bg="green", font=("arial",10,"bold"))
+clone9.grid(row=13,column=0)
+clone9_entry=Entry(my_window,width=50)
+clone9_entry.grid(row=13,column=1)
+
+clone10 = Label(my_window, text="Clone #10: ", bg="green", font=("arial",10,"bold"))
+clone10.grid(row=14,column=0)
+clone10_entry=Entry(my_window,width=50)
+clone10_entry.grid(row=14,column=1)
+
+button2=Button(my_window,text="Lollipop Diagram and Clonal Analysis", bg= "lightblue",command=draw)
+button2.grid(row=2,column=1)
+
+#Determining methylation percentage:
+label_meth=Label(my_window, text="Total Percentage Methylation", bg="red", font=("arial",10,"bold"))
+label_meth.grid(row=15,column=0)
+button_meth=Button(my_window, text="Methylation Percentage", bg="red",command=methylation_per)
+button_meth.grid(row=2, column =2)
+
+#label for the lollipop diagrams:
+label_lolipop=Label(my_window, text="Lolipop Diagram", bg="white", font=("arial",10,"bold"))
+label_lolipop.grid(row=17,column=0)
+
+my_window.mainloop()
